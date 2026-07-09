@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .result-badge {
+            display: inline-block;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 32px;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+        .badge-good {
+            background: #d4edda;
+            color: #155724;
+        }
+        .badge-bad {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .probability-section {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+        }
+        .prob-box {
+            padding: 20px;
+            border-radius: 12px;
+            min-width: 120px;
+        }
+        .prob-good {
+            background: #d4edda;
+        }
+        .prob-bad {
+            background: #f8d7da;
+        }
+        .prob-value {
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .prob-label {
+            font-size: 14px;
+            color: #555;
+        }
+        .summary {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+        .btn-back {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+        .btn-back:hover {
+            transform: scale(1.02);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Prediction Result</h1>
+        <p class="subtitle">Based on the provided applicant information</p>
+        
+        {% if result.prediction == 'good' %}
+            <div class="result-badge badge-good">✅ GOOD CLIENT</div>
+        {% else %}
+            <div class="result-badge badge-bad">⚠️ BAD CLIENT</div>
+        {% endif %}
+        
+        <div class="probability-section">
+            <div class="prob-box prob-good">
+                <div class="prob-value">{{ result.probability_good }}%</div>
+                <div class="prob-label">Good</div>
+            </div>
+            <div class="prob-box prob-bad">
+                <div class="prob-value">{{ result.probability_bad }}%</div>
+                <div class="prob-label">Bad</div>
+            </div>
+        </div>
+        
+        <div class="summary">
+            <h3 style="margin-bottom:10px; color:#333;">Applicant Summary</h3>
+            <div class="summary-item">
+                <span>Gender</span>
+                <span>{{ data.CODE_GENDER }}</span>
+            </div>
+            <div class="summary-item">
+                <span>Age</span>
+                <span>{{ data.AGE }} years</span>
+            </div>
+            <div class="summary-item">
+                <span>Annual Income</span>
+                <span>${{ "{:,.0f}".format(data.AMT_INCOME_TOTAL) }}</span>
+            </div>
+            <div class="summary-item">
+                <span>Employment</span>
+                <span>{{ data.EMPLOYMENT_YEARS }} years</span>
+            </div>
+            <div class="summary-item">
+                <span>Education</span>
+                <span>{{ data.NAME_EDUCATION_TYPE }}</span>
+            </div>
+            <div class="summary-item">
+                <span>Marital Status</span>
+                <span>{{ data.NAME_FAMILY_STATUS }}</span>
+            </div>
+            <div class="summary-item">
+                <span>Children</span>
+                <span>{{ data.CNT_CHILDREN }}</span>
+            </div>
+            <div class="summary-item">
+                <span>Occupation</span>
+                <span>{{ data.OCCUPATION_TYPE }}</span>
+            </div>
+        </div>
+        
+        <a href="/" class="btn-back">← Make Another Prediction</a>
+    </div>
+</body>
+</html>
