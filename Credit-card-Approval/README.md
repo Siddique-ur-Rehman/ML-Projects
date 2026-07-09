@@ -1,8 +1,4 @@
-Here's the complete README in one file. Copy and paste this into your `Credit-card-Approval/README.md` file:
 
----
-
-```markdown
 # 💳 Credit Card Approval Predictor
 
 A machine learning project that predicts whether a credit card applicant is a **"good"** or **"bad"** client using historical data. Built with **XGBoost**, **Random Forest**, and deployed with an interactive **Flask** web UI.
